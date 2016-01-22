@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block pageheader_classes %}background6 parallax{% endblock %}
+{% block footer_classes %}background6 parallax{% endblock %}
+
+{% block title %}Everything you ever wanted to know about ProductHunt but never dared to ask - metahunt.co{% endblock %}
+
+
+
+{% block page_header %}<h1 class="page-title">Statistics</h1>{% endblock %}
+
+{%load static%}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Product Hunt in numbers...</h2>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{nums.users|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Number of users on PH</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{nums.featured|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Number of products featured</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{nums.comments|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Number of comments to featured products</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{nums.votes|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Number of upvotes for featured products</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{nums.days|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">days since PH launch</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{avg.users|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Average signups per day</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{avg.featured|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Average features per day</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{avg.votes|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">Average upvotes per day</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;<br><br><br><br>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Product Hunt and BetaList</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{betalist.count|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">PH features were on BetaList</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{betalist.before|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">products appeared on BetaList first</div>
+    </div>
+    <div class="col-md-3 stats-container">
+        <div class="stats-num">{{betalist.after|floatformat:"0"|intcomma}}</div>
+        <div class="stats-text">products appeared on Product Hunt first</div>
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;<br><br><br><br>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Product Hunt by week days</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Signups by weekday</h4>
+        {% for weekday, values in by_week_day.items %}
+        <div class="progress-container">
+            <h4 class="progress-title">{{weekday}}</h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-custom progress-animate lightbluebg" role="progressbar" aria-valuenow="{{values.num_new_users}}" aria-valuemin="0" aria-valuemax="{{nums.users}}" data-width="{% widthratio values.num_new_users nums.users 500 %}">
+                 <span class="progress-text">{{values.num_new_users}}</span>
+                </div><!-- End .progress-bar -->
+            </div><!-- End .progress -->
+        </div><!-- End .progress-container -->
+        {% endfor %}
+    </div>
+    <div class="col-md-6">
+        <h4>Features by weekday</h4>
+        {% for weekday, values in by_week_day.items %}
+        <div class="progress-container">
+            <h4 class="progress-title">{{weekday}}</h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-custom progress-animate lightbluebg" role="progressbar" aria-valuenow="{{values.num_featured}}" aria-valuemin="0" aria-valuemax="{{nums.featured}}" data-width="{% widthratio values.num_featured nums.featured 500 %}">
+                 <span class="progress-text">{{values.num_featured}}</span>
+                </div><!-- End .progress-bar -->
+            </div><!-- End .progress -->
+        </div><!-- End .progress-container -->
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;<br><br><br><br>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h4>highest votes (7 days)</h4>
+        <table class="table timemachine-table">
+            {% for hunt in products.7d.top %}
+            <a href="{% url 'hunt' slug=hunt.slug %}"><tr>
+                    <td class="timemachine-votes">{{hunt.votes_count}}</td>
+                    <td class="timemachine-product"><strong>{{hunt.name}}</strong></td>
+                    <td class="timemachine-link"><a href="{% url 'hunt' slug=hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                </tr></a>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-3">
+        <h4>lowest votes (7 days)</h4>
+        <table class="table timemachine-table">
+            {% for hunt in products.7d.flop %}
+            <a href="{% url 'hunt' slug=hunt.slug %}"><tr>
+                    <td class="timemachine-votes">{{hunt.votes_count}}</td>
+                    <td class="timemachine-product"><strong>{{hunt.name}}</strong></td>
+                    <td class="timemachine-link"><a href="{% url 'hunt' slug=hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                </tr></a>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-3">
+        <h4>highest votes (30 days)</h4>
+        <table class="table timemachine-table">
+            {% for hunt in products.30d.top %}
+            <a href="{% url 'hunt' slug=hunt.slug %}"><tr>
+                    <td class="timemachine-votes">{{hunt.votes_count}}</td>
+                    <td class="timemachine-product"><strong>{{hunt.name}}</strong></td>
+                    <td class="timemachine-link"><a href="{% url 'hunt' slug=hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                </tr></a>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-3">
+        <h4>lowest votes (30 days)</h4>
+        <table class="table timemachine-table">
+            {% for hunt in products.30d.flop %}
+            <a href="{% url 'hunt' slug=hunt.slug %}"><tr>
+                    <td class="timemachine-votes">{{hunt.votes_count}}</td>
+                    <td class="timemachine-product"><strong>{{hunt.name}}</strong></td>
+                    <td class="timemachine-link"><a href="{% url 'hunt' slug=hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                </tr></a>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="{% static "charts/metricsgraphics.css" %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="{% static "charts/metricsgraphics.js" %}"></script>
+
+
+<script>
+    d3.json('{% url 'ph_day_stats' %}', function(data) {
+        for (var i = 0; i < data.length; i++) {
+            data[i] = MG.convert.date(data[i], 'date');
+        }
+
+        var all_legends = ['num_featured', 'num_comments', 'num_votes', 'max_comments', 'max_votes', 'min_comments', 'min_votes', 'avg_comments', 'avg_votes', 'num_users', 'num_featured_sum', 'num_new_users'];
+
+        // chart 1
+        MG.data_graphic({
+            title: "How fast is ProductHunt growing?",
+            description: "Number of registered users over time",
+            data: [data[9]],
+            animate_on_load: true,
+            width: 1024,
+            height: 360,
+            right: 40,
+            target: '#ph_day_stats_1',
+            legend: ['num_users'],
+            legend_target: '#ph_day_stats_1-legend'
+        });
+
+        MG.data_graphic({
+            title: "How fast is ProductHunt growing?",
+            description: "Number of registered users each day",
+            data: [data[11]],
+            animate_on_load: true,
+            width: 1024,
+            height: 360,
+            right: 40,
+            target: '#ph_day_stats_1a',
+            legend: ['num_new_users'],
+            legend_target: '#ph_day_stats_1a-legend'
+        });
+        /*MG.data_graphic({
+            title: "How fast is ProductHunt growing?",
+            description: "Number of Products featured on PH each day compared to the number of comments and votes",
+            data: [data[0], data[1], data[2]],
+            animate_on_load: true,
+            width: 1024,
+            height: 360,
+            right: 40,
+            target: '#ph_day_stats_1',
+            legend: ['num_featured', 'num_comments', 'num_votes'],
+            legend_target: '#ph_day_stats_1-legend'
+        });*/
+
+        // chart 1
+        MG.data_graphic({
+            title: "How may Products has been featured?",
+            description: "Number of registered users over time",
+            data: [data[10]],
+            animate_on_load: true,
+            width: 1024,
+            height: 360,
+            right: 40,
+            target: '#ph_day_stats_2',
+            legend: ['num_featured_sum'],
+            legend_target: '#ph_day_stats_2-legend'
+        });
+
+        // chart 3
+        MG.data_graphic({
+            title: "How difficult is it to get featured?",
+            description: "Average number of upvotes of featured products over time",
+            data: [data[8]],
+            animate_on_load: true,
+            width: 1024,
+            height: 360,
+            right: 40,
+            target: '#ph_day_stats_3',
+            legend: ['avg_votes'],
+            legend_target: '#ph_day_stats_3-legend'
+        });
+    });
+    </script>
+
+
+
+    
+    <!--
+    
+    - per weekday: new_users, avg_upvotes, num_featured
+    - product with most/least upvotes of the last 7/30 days
+    - number of signups per hour of the day
+    - average time for user doublin
+
+-->
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;<br><br><br><br>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Product Hunt in Graphs</h2>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10">
+        <div id="ph_day_stats_1">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <span id="ph_day_stats_1-legend"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div id="ph_day_stats_1a">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <span id="ph_day_stats_1a-legend"></span>
+    </div>
+</div>
+
+    
+<div class="row">
+    <div class="col-md-10">
+        <div id="ph_day_stats_2">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <span id="ph_day_stats_2-legend"></span>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10">
+        <div id="ph_day_stats_3">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <span id="ph_day_stats_3-legend"></span>
+    </div>
+</div>
+
+
+{% endblock %}

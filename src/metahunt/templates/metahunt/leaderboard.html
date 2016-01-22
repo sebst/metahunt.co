@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block pageheader_classes %}background5 parallax{% endblock %}
+{% block footer_classes %}background5 parallax{% endblock %}
+
+
+{% block page_header %}<h1 class="page-title">Leaderboard</h1>{% endblock %}
+
+{% block title %}ProductHunt Leaderboard - metahunt.co{% endblock %}
+
+
+{% block content %}
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab-container left clearfix">
+                <!-- Tab nav -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#by_upvotes" role="tab" data-toggle="tab">All time</a></li>
+                    <li><a href="#by_ratio" role="tab" data-toggle="tab">By Ratio</a></li>
+                    <li><a href="#by_reach" role="tab" data-toggle="tab">By Reach</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="by_upvotes">
+                        
+                        <h2>Top {{n}} Products on ProductHunt</h2>
+                        <p>The products with the most Upvotes of all time</p>
+                        <p><strong>Downside: </strong>This metric does not take into account the date a product was posted and thus, does not take into account the number of users who were active on ProductHunt when the product was posted. Hence, since ProductHunt is steadily growing, newer product are biased to rank higher using that metric</p>
+
+
+                        <table class="table leaderboard-table">
+                            {% for lb in lb_alltime %}
+                            <a href="{% url 'hunt' slug=lb.hunt.slug %}"><tr>
+                                <td class="timemachine-votes">{{lb.hunt.votes_count}}</td>
+                                <td class="timemachine-product"><em class="label label-default">{{lb.hunt.day}}</em> <strong>{{lb.hunt.name}}</strong><br><em>{{lb.hunt.tagline}}</em></td>
+                                <td class="timemachine-link"><a href="{% url 'hunt' slug=lb.hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                            </tr></a>
+                            {% endfor %}
+                        </table>
+
+
+                    </div><!-- End .tab-pane -->
+                    <div class="tab-pane fade" id="by_ratio">
+                        <h2>Top {{n}} Products on ProductHunt by Ratio</h2>
+                        <p>This ranking is based on the share of daily votes a featured product got. <em>Example: </em>
+                            Imagine, there are 4 products (A, B, C, D) featured on ProductHunt on one day with 1, 2, 3, 4 upvotes respectively. Then, the total number of upvotes for featured products on that day is 10 and thus, the ratio metric will be 0.1, 0.2, 0.3 and 0.4 respectively.
+                        </p>
+                        <p><strong>Downside: </strong>The upvotes for the product are accounted to the day the product was featured and not to the day the upvote was actually made by the respective user.</p>
+
+                        <table class="table leaderboard-table">
+                            {% for lb in lb_ratio %}
+                            <a href="{% url 'hunt' slug=lb.hunt.slug %}"><tr>
+                                <td class="timemachine-votes">{{lb.ratio_votes_pct}}</td>
+                                <td class="timemachine-product"><em class="label label-default">{{lb.hunt.day}}</em> <strong>{{lb.hunt.name}}</strong><br><em>{{lb.hunt.tagline}}</em></td>
+                                <td class="timemachine-link"><a href="{% url 'hunt' slug=lb.hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                            </tr></a>
+                            {% endfor %}
+                        </table>
+
+
+                    </div><!-- End .tab-pane -->
+                    <div class="tab-pane fade" id="by_reach">
+                        <h2>Top {{n}} Products on ProductHunt by Reach</h2>
+                        <p>This ranking is based on the share of daily votes a featured product got. <em>Example: </em>
+                            Imagine, there are 4 products (A, B, C, D) featured on ProductHunt on one day with 1, 2, 3, 4 upvotes respectively. Then, the total number of upvotes for featured products on that day is 10 and thus, the ratio metric will be 0.1, 0.2, 0.3 and 0.4 respectively.
+                        </p>
+                        <p><strong>Downside: </strong>ProductHunt users may upvote a product which was featured before they were registered. This reults in product which have an upvote reach greater than unity.</p>
+
+                        <table class="table leaderboard-table">
+                            {% for lb in lb_reach %}
+                            <a href="{% url 'hunt' slug=lb.hunt.slug %}"><tr>
+                                <td class="timemachine-votes">{{lb.reach_votes_all_pct}}</td>
+                                <td class="timemachine-product"><em class="label label-default">{{lb.hunt.day}}</em> <strong>{{lb.hunt.name}}</strong><br><em>{{lb.hunt.tagline}}</em></td>
+                                <td class="timemachine-link"><a href="{% url 'hunt' slug=lb.hunt.slug %}"><i class="fa fa-play"></i></a></td>
+                            </tr></a>
+                            {% endfor %}
+                        </table>
+                    </div><!-- End .tab-pane -->
+                </div><!-- End .tab-content -->
+
+            </div>
+        </div>
+
+
+
+{% endblock %}

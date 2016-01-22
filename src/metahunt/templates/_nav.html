@@ -1,0 +1,11 @@
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse navbar-right" id="main-menu">
+    <ul class="nav navbar-nav">
+        <li {% if active == 'index' %}class="active"{% endif %}><a href="{% url 'index' %}">Home</a></li>
+        <li {% if active == 'leaderboard' %}class="active"{% endif %}><a href="{% url 'leaderboard' %}">Leaderboard</a></li>
+        <li {% if active == 'stats' %}class="active"{% endif %}><a href="{% url 'stats' %}">Statistics</a></li>
+        <li {% if active == 'timemachine' %}class="active"{% endif %}><a href="{% url 'timemachine' %}">Time Machine</a></li>
+        <li {% if active == 'milestones' %}class="active"{% endif %}><a href="{% url 'milestones' %}">Milestones</a></li>
+        <li {% if active == 'about' %}class="active"{% endif %}><a href="{% url 'about' %}">About</a></li>
+    </ul>
+</div><!-- /.navbar-collapse -->

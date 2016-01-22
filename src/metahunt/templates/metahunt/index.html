@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageheader_classes %}background5 parallax{% endblock %}
+{% block footer_classes %}background5 parallax{% endblock %}
+
+
+
+{% block page_header_wrapper %}{% endblock %}
+{% block header_wrapper %}
+<header id="header" class="transparent">
+    <nav class="navbar navbar-default navbar-transparent" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand navbar-brand-img" href="{% url 'index' %}"><img src="{% static "images/logo.png" %}" class="img-responsive logo-white" alt="logo"><img src="{% static "images/logo.png" %}" class="img-responsive logo-fixed" alt="logo"></a>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>
+<div class="md-margin2x"></div><!-- space -->
+
+{% endblock %}
+{% block footer_wrapper %}{% endblock %}
+
+{% block content %}
+
+
+	<div class="row">
+		<a href="{% url 'timemachine' %}"><div class="col-md-6 background4-s fitbg">
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<h1 class="page-title">Time Machine</h1>
+		</div></a>
+		<a href="{% url 'leaderboard' %}"><div class="col-md-6 background5-s fitbg">
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<h1 class="page-title">Leaderboard</h1>
+		</div></a>
+	</div>
+	<div class="row">
+		<a href="{% url 'stats' %}"><div class="col-md-6 background6-s fitbg">
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<h1 class="page-title">Statistics</h1>
+		</div></a>
+		<a href="{% url 'milestones' %}"><div class="col-md-6 background7-s fitbg">
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<h1 class="page-title">Milestones</h1>
+		</div></a>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,192 @@
+/*!
+ *  Kwicks: Sexy Sliding Panels for jQuery - v2.2.1
+ *  http://devsmash.com/projects/kwicks
+ *
+ *  Copyright 2013 Jeremy Martin (jmar777)
+ *  Contributors: Duke Speer (Duke3D), Guillermo Guerrero (gguerrero)
+ *  Released under the MIT license
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+/*
+ *  This file contains styles that are common to all kwicks instances.  Note that each kwicks instance requires
+ *  additional styling - please see the examples for more info.
+ */
+
+.kwicks {
+	display: block;
+	list-style-type: none;
+	list-style: none;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	height:100%;
+}
+
+.kwicks.dark {
+	background-color: #000;
+}
+
+.kwicks > * {
+	display: block;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+
+.kwicks.kwicks-processed > * {
+	margin: 0;
+	position: absolute;
+}
+
+.kwicks-horizontal > * {
+	float: left;
+}
+
+.kwicks-horizontal > :first-child {
+	margin-left: 0;
+}
+
+.kwicks-vertical > :first-child {
+	margin-top: 0;
+}
+
+.kwicks li {
+	height:100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	-webkit-background-size: cover;
+	position: relative;
+	background-attachment: fixed;
+}
+
+
+
+.kwicks li#panel-1 {
+	background-image: url('../images/backgrounds/background21.jpg');
+}
+
+.kwicks li#panel-2 {
+	background-image: url('../images/backgrounds/background19.jpg');
+}
+
+.kwicks li#panel-3 {
+	background-image: url('../images/backgrounds/background17.jpg');
+}
+
+.kwicks li#panel-4 {
+	background-image: url('../images/backgrounds/background16.jpg');
+}
+
+.kwicks-title {
+	font:50px/1 'dancing_scriptbold', 'latobold', sans-serif;
+	color:#fff;
+	position: absolute;
+	right:15px;
+	bottom:84px;
+	opacity:0;
+	filter: alpha(opacity=0);
+	text-transform: capitalize;
+	z-index:99;
+}
+
+.kwicks-subtitle {
+	font:22px/30px  'open_sansregular', sans-serif;
+	color:#fff;
+	position: absolute;
+	right:65px;
+	bottom:41px;
+	opacity:0;
+	filter: alpha(opacity=0);
+	z-index:90;
+}
+
+
+.kwicks-expanded .kwicks-title {
+	transition:all 0.52s ease-in 0.5s;
+	-webkit-transition:all 0.52s ease-in 0.5s;
+	-ms-transition:all 0.52s ease-in 0.5s;
+	opacity:1;
+	filter: alpha(opacity=100);
+	transform:translateX(-25px);
+	-webkit-transform:translateX(-25px);
+	-moz-transform:translateX(-25px);
+	-ms-transform:translateX(-25px);
+	-o-transform:translateX(-25px);
+
+}
+
+.kwicks-expanded .kwicks-subtitle {
+	transition:all 0.5s ease-in 0.85s;
+	-webkit-transition:all 0.5s ease-in 0.85s;
+	-ms-transition:all 0.5s ease-in 0.85s;
+	opacity:1;
+	filter: alpha(opacity=100);
+	transform:translateX(25px);
+	-webkit-transform:translateX(25px);
+	-moz-transform:translateX(25px);
+	-ms-transform:translateX(25px);
+	-o-transform:translateX(25px);
+}
+
+.kwicks-collapsed .kwicks-title,
+.kwicks-collapsed .kwicks-subtitle {
+
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+	.kwicks-title {
+		font-size:30px;
+		bottom:90px;
+	}
+
+	.kwicks-subtitle {
+		font-size:16px;
+		bottom:59px;
+	}
+	
+}
+
+@media (max-width:768px) {
+
+	.kwicks-title {
+		font-size:22px;
+		bottom:65px;
+	}
+
+	.kwicks-subtitle {
+		font-size:13px;
+		line-height: 20px;
+		bottom:40px;
+	}
+
+}
+
+@media (max-width:480px) {
+
+	.kwicks-title {
+		font-size:18px;
+		bottom:50px;
+	}
+
+	.kwicks-subtitle {
+		font-size:9px;
+		line-height:16px;
+		bottom:30px;
+	}
+
+}
+
+@media (max-width:380px) {
+
+	.kwicks-title {
+		font-size:20px;
+		bottom:30px;
+	}
+
+	.kwicks-subtitle {
+		display:none;
+	}
+
+}

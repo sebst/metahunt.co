@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block pageheader_classes %}background8 parallax{% endblock %}
+{% block footer_classes %}background8 parallax{% endblock %}
+
+{% block title %}{{hunt.name}} on metahunt.co{% endblock %}
+
+
+{% block page_header %}<h1 class="page-title">{{hunt.name}}</h1>{% endblock %}
+
+
+{% block content %}
+
+
+
+
+	<div class="row">
+		<div class="col-md-6">
+			<h2>{{hunt.name}}</h2>
+			<p><em>{{hunt.tagline}}</em></p>
+
+			<p style="font-size:smaller;">
+				<i class="fa fa-calendar"></i> Featured on <a href="{% url 'timemachine' %}?day={{hunt.day|date:"Ymd"}}">{{hunt.day}}</a> <br>
+				<i class="fa fa-thumbs-up"></i> {{hunt.votes_count}} Upvotes </a><br>
+				<i class="fa fa-globe"></i> <a href="{{hunt.redirect_url}}">{{hunt.real_domain}} </a><br>
+				<i class="fa fa-users"></i> <a href="{{hunt.discussion_url}}">Discuss on ProductHunt </a><br>
+				{% if hunt.makers.all %}<i class="fa fa-wrench"></i> Made by: {% for maker in hunt.makers.all %}<a href="http://www.producthunt.com/@{{maker.username}}/products">{{maker.username}}</a> {% endfor %}<br>{% endif %}
+				{% if hunt.crunchbase_company %}<i class="fa fa-database"></i> <a href="{{hunt.crunchbase_company}}">{{hunt.name}} on CrunchBase </a><br>{% endif %}
+
+				{% if hunt.betalist_product %}<i class="fa fa-database"></i> <a href="{{hunt.betalist_product.url}}">{{hunt.name}} on BetaList </a><br>{% endif %}
+
+				<i class="fa fa-trophy"></i> Place {{hunt.lb_stats.rank_num}} by total votes; {{hunt.lb_stats.rank_reach}} by reach; {{hunt.lb_stats.rank_ratio}} by ratio
+			</p>
+
+
+		</div>
+		<div class="col-md-6">
+			<a href="{{hunt.redirect_url}}"><img style="max-width:100%;" src="{{hunt.screenshot_850px}}"></a>
+		</div>
+	</div>
+
+
+{% endblock %}

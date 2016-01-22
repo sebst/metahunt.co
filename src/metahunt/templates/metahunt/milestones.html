@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block pageheader_classes %}background7 parallax{% endblock %}
+
+{% block title %}ProductHunt milestones - metahunt.co{% endblock %}
+
+
+{% block page_header %}<h1 class="page-title">Milestones</h1>{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+<div class="row">
+                        <div class="col-md-12 articles-container timeline-container">
+                            
+
+                            
+
+
+
+                            {%for month, month_milestones in milestones.items %}
+                            <div class="row">
+                                <div class="timeline-date {% if forloop.counter == 1 %}first{%endif%}">{{month}}</div>
+                                    {% for milestone in month_milestones %}
+                                    <div class="col-md-6 col-sm-6 timeline {% if forloop.counter|divisibleby:2 %}right{% else %}left{% endif %}">
+                                        {% if milestone.typ == '!started' %}
+                                        <article class="article green wow fadeInUpBig">
+                                        {% elif milestone.typ == 'top10_num' %}
+                                        <article class="article yellow wow fadeInUpBig">
+                                        {% elif milestone.typ == 'top10_ratio' %}
+                                        <article class="article yellow wow fadeInUpBig">
+                                        {% elif milestone.typ == 'top10_reach' %}
+                                        <article class="article yellow wow fadeInUpBig">
+                                        {% elif milestone.typ == 'users_doubled' %}
+                                        <article class="article orange wow fadeInUpBig">
+                                        {% elif milestone.typ == 'products_doubled' %}
+                                        <article class="article orange wow fadeInUpBig">
+                                        {% elif milestone.typ == 'max_featured' %}
+                                        <article class="article red wow fadeInUpBig">
+                                        {% elif milestone.typ == 'max_new_users' %}
+                                        <article class="article red wow fadeInUpBig">
+                                        {% else %}
+                                        <article class="article orange wow fadeInUpBig">
+                                        {% endif %}
+                                        
+                                                <span class="article-timeline-date add-tooltip" data-placement="top" title="{{milestone.day}}"></span>
+                                            
+                                            <div class="article-meta-container">
+                                                    <span class="article-icon">
+                                                        {% if milestone.typ == '!started' %}
+                                                        <i class="fa fa-flag-o"></i>
+                                                        {% elif milestone.typ == 'top10_num' %}
+                                                        <i class="fa fa-trophy"></i>
+                                                        {% elif milestone.typ == 'top10_ratio' %}
+                                                        <i class="fa fa-trophy"></i>
+                                                        {% elif milestone.typ == 'top10_reach' %}
+                                                        <i class="fa fa-trophy"></i>
+                                                        {% elif milestone.typ == 'users_doubled' %}
+                                                        <i class="fa fa-users"></i>
+                                                        {% elif milestone.typ == 'products_doubled' %}
+                                                        <i class="fa fa-gift"></i>
+                                                        {% elif milestone.typ == 'max_featured' %}
+                                                        <i class="fa fa-gift"></i>
+                                                        {% elif milestone.typ == 'max_new_users' %}
+                                                        <i class="fa fa-users"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-file-image-o"></i>
+                                                        {% endif %}
+                                                    </span>
+                                                    <h2>
+
+                                                        {% if milestone.typ == '!started' %}
+                                                        ProductHunt was born
+                                                        {% elif milestone.typ == 'top10_num' %}
+                                                        {{milestone.hunt.name}} was featured
+                                                        {% elif milestone.typ == 'top10_ratio' %}
+                                                        {{milestone.hunt.name}} was featured
+                                                        {% elif milestone.typ == 'top10_reach' %}
+                                                        {{milestone.hunt.name}} was featured
+                                                        {% elif milestone.typ == 'users_doubled' %}
+                                                        The number of users doubled
+                                                        {% elif milestone.typ == 'products_doubled' %}
+                                                        The number of featured products doubled
+                                                        {% elif milestone.typ == 'max_featured' %}
+                                                        This is the day with the most featured products
+                                                        {% elif milestone.typ == 'max_new_users' %}
+                                                        This is the day with the most new users
+                                                        {% else %}
+                                                        something else happened
+                                                        {% endif %}
+                                                    </h2>
+                                                    <p>
+
+                                                        {% if milestone.typ == '!started' %}
+                                                            This is the first day of ProductHunt as we know it.<br>
+                                                            ProductHunt started with {{milestone.day_stats.num_users|floatformat:"0"|intcomma}} users
+                                                        {% elif milestone.typ == 'top10_num' %}
+                                                            {{milestone.hunt.name}} was featured on {{milestone.day}} and is now on {{milestone.iteration|ordinal}} place of the Top10 poducts by total votes.
+                                                            <br><br><a class="btn btn-default btn-xs" href="{% url 'hunt' slug=milestone.hunt.slug %}">Read more about {{milestone.hunt.name}}</a>
+                                                        {% elif milestone.typ == 'top10_ratio' %}
+                                                            {{milestone.hunt.name}} was featured on {{milestone.day}} and is now on {{milestone.iteration|ordinal}} place of the Top10 poducts by ratio.
+                                                            <br><br><a class="btn btn-default btn-xs" href="{% url 'hunt' slug=milestone.hunt.slug %}">Read more about {{milestone.hunt.name}}</a>
+                                                        {% elif milestone.typ == 'top10_reach' %}
+                                                            {{milestone.hunt.name}} was featured on {{milestone.day}} and is now on {{milestone.iteration|ordinal}} place of the Top10 poducts by reach.
+                                                            <br><br><a class="btn btn-default btn-xs" href="{% url 'hunt' slug=milestone.hunt.slug %}">Read more about {{milestone.hunt.name}}</a>
+                                                        {% elif milestone.typ == 'users_doubled' %}
+                                                            On {{milestone.day}} the number of users on ProductHunt doubled. ProductHunt has now {{milestone.num|floatformat:"0"|intcomma}} users.
+                                                        {% elif milestone.typ == 'products_doubled' %}
+                                                            On {{milestone.day}} the number of featured products on ProductHunt doubled. ProductHunt has featured {{milestone.num|floatformat:"0"|intcomma}} products so far.
+                                                        {% elif milestone.typ == 'max_featured' %}
+                                                            On {{milestone.day}} a total of {{milestone.num|floatformat:"0"|intcomma}} products were fetured on ProductHunt. This is a record so far.
+                                                        {% elif milestone.typ == 'max_new_users' %}
+                                                            On {{milestone.day}} a total of {{milestone.num|floatformat:"0"|intcomma}} users signed up on ProductHunt. This is a record so far.
+                                                        {% else %}
+                                                            {{milestone.typ}}
+                                                        {% endif %}
+                                                    </p>
+
+                                            </div><!-- End .article-meta-container -->
+                                        </article><!-- End .article -->
+                                    </div><!-- End .timeline -->
+                                    {% endfor %}
+                            </div>
+                            {% endfor %}
+
+
+                        </div><!-- End .col-md-12 -->
+                    </div><!-- End .row -->
+
+{% endblock %}

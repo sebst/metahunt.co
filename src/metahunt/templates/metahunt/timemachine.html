@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block pageheader_classes %}background4 parallax{% endblock %}
+{% block footer_classes %}background4 parallax{% endblock %}
+
+
+{% block page_header %}<h1 class="page-title">{{ago}}  on ProductHunt</h1>{% endblock %}
+
+{% block title %}ProductHunt time machine - metahunt.co{% endblock %}
+
+
+{% block content %}
+
+
+
+
+
+
+	<div class="row">
+		<div class="col-md-3">
+			<a href="?day={{before.start|date:"Ymd"}}" class="btn btn-default form-control">First day of Product Hunt</a>
+		</div>
+		<div class="col-md-3">
+			<a href="?day={{before.1y|date:"Ymd"}}" class="btn btn-default form-control">One year ago</a>
+		</div>
+		<div class="col-md-3">
+			<a href="?day={{before.7d|date:"Ymd"}}" class="btn btn-default form-control">Last Week</a>
+		</div>
+		<div class="col-md-3">
+			<input type="text" type="text form-control" class="form-control datepicker" placeholder="a custom date">
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<h2>{{day}}</h2>
+			<table class="table timemachine-table">
+				<tr>
+					<td colspan="3">
+						<div style="width:50%; float:left;">{% if prev %}<a href="?day={{prev|date:"Ymd"}}"><i class="fa fa-backward"></i> {{prev}}</a>{% endif %}&nbsp;</div>
+						<div style="width:50%; float:left; text-align:right;">{% if next %}<a href="?day={{next|date:"Ymd"}}">{{next}} <i class="fa fa-forward"></i></a>{% endif %}&nbsp;</div>
+					</td>
+				</tr>
+				{% for hunt in hunts %}
+				<a href="{% url 'hunt' slug=hunt.slug %}"><tr>
+					<td class="timemachine-votes">{{hunt.votes_count}}</td>
+					<td class="timemachine-product"><strong>{{hunt.name}}</strong><br><em>{{hunt.tagline}}</em></td>
+					<td class="timemachine-link"><a href="{% url 'hunt' slug=hunt.slug %}"><i class="fa fa-play"></i></a></td>
+				</tr></a>
+				{% endfor %}
+				<tr>
+					<td colspan="3">
+						<div style="width:50%; float:left;">{% if prev %}<a href="?day={{prev|date:"Ymd"}}"><i class="fa fa-backward"></i> {{prev}}</a>{% endif %}&nbsp;</div>
+						<div style="width:50%; float:left; text-align:right;">{% if next %}<a href="?day={{next|date:"Ymd"}}">{{next}} <i class="fa fa-forward"></i></a>{% endif %}&nbsp;</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+
+	
+
+
+{% endblock %}

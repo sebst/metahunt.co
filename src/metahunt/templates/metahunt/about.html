@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block pageheader_classes %}background4 parallax{% endblock %}
+{% block footer_classes %}background4 parallax{% endblock %}
+
+
+{% block page_header %}<h1 class="page-title">About metahunt.co</h1>{% endblock %}
+{% block title %}About metahunt.co{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12">
+
+		<h2>metahunt.co is a small experiment with the <a href="https://api.producthunt.com/v1/docs">Product Hunt API</a> by <a href="http://seb.st/">Sebastian Steins</a> (<a href="https://twitter.com/sebastiansteins">@sebastiansteins</a> on Twitter).</h2>
+
+		<h3>Tools Used</h3>
+		<p>
+			<ul>
+				<li>Django 1.8 on Python 3.4</li>
+				<li>MySQL</li>
+				<li>nginx</li>
+				<li>memcached</li>
+				<li>cloudflare</li>
+				<li>Product Hunt API</li>
+				<li>CrunchBase exports</li>
+				<li>BetaList private API</li>
+				<li>somome sharing widgets</li>
+				<li>Google Analytics</li>
+			</ul>
+		</p>
+
+		<h3>Images</h3>
+		<p>All Images on this site were grabbed from <a href="http://unspalsh.com">Unsplash</a></p>
+
+	</div>
+</div>
+
+{% endblock %}
